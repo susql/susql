@@ -7,9 +7,10 @@ CREATE TABLE -- define a new table
 
 ```
 CREATE [ [ GLOBAL | LOCAL ] { TEMPORARY | TEMP } | UNLOGGED ] TABLE [ IF NOT EXISTS ] table_name ( [
-  { column_name data_type [ COLLATE collation ] [ column_constraint [ ... ] ]
+  { column_name data_type [ COLLATE collation ] [ COMPRESS compression ] [ column_constraint [ ... ] ]
     | table_constraint
-    | LIKE source_table [ like_option ... ] }
+    | LIKE source_table [ like_option ... ] 
+    | COMPRESS default_compression }
     [, ... ]
 ] )
 [ INHERITS ( parent_table [, ... ] ) ]
@@ -27,3 +28,8 @@ CREATE [ [ GLOBAL | LOCAL ] { TEMPORARY | TEMP } | UNLOGGED ] TABLE [ IF NOT EXI
 
 * SORT BY  
   When table is STORED AS **ORC**, sort the column for reading optimize.
+
+* COMPRESS  
+  To set column compression type for a table. **COMPRESS default_compression** is for default compression type if individual column compression is not specific.  
+  There is a buildin compression type **PGLZ**, and an extension compression type **ZLIB**(create extension dc_zlib fistly to use ZLIB compression).  
+
